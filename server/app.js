@@ -34,8 +34,8 @@ app.get('/', function(req, res){
 // dica: o handler desta função pode chegar a ter umas 15 linhas de código
 
 app.get('/jogador/:steamid/', function(req, res){
-  var perfil = _.find(db.jogadores.players, function(esse) { return esse.steamid === req.params.id; });
-  var jogos = db.jogosPorJogador[req.params.id];
+  var perfil = _.find(db.jogadores.players, function(esse) { return esse.steamid === req.params.steamid; });
+  var jogos = db.jogosPorJogador[perfil.steamid];
 
   jogos.num_nao_jogados = _.where(jogos.games, { playtime_forever: 0 }).length;
 
@@ -44,20 +44,17 @@ app.get('/jogador/:steamid/', function(req, res){
   });
 
   jogos.games = _.map(jogos.games, function(esse){
-    esse.playtime_forever = esse.playtime_forever/60;
-  })
+    esse.playtime_forever_em_h = Math.round(esse.playtime_forever/60);
+    return esse;
+  });
+
+  jogos.games = _.head(jogos.games, 5);
+
   res.render('jogador', {
     profile: perfil,
     gameInfo: jogos,
     favorite: jogos.games[0]
   });
-});
-
-app.use(express.static('client'));
-
-var server = app.listen(app.get('port'), function () {
-  console.log('Servidor aberto em http://localhost:' + server.address().port);
-
 });
 
 // EXERCÍCIO 1

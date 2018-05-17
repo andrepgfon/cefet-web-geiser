@@ -32,7 +32,7 @@
               <!-- O número grande é um id de cada jogador que provém de jogadores.json, campo steamid -->
               <a class="media-left media-middle" href="{{this.steamid}}/">
                 <!-- A URL da foto do jogador provem de jogadores.json, do campo avatarmedium -->
-                <img src="{{this.avatarfull}}" class="avatar">
+                <img src="{{this.avatarmedium}}" class="avatar">
               </a>
               <div class="media-body">
                 <h3 class="media-heading">
@@ -52,7 +52,7 @@
               </div>
               <div class="player-card-link-container media-right media-bottom">
                 <!-- O número grande é um id de cada jogador que provém de jogadores.json, campo steamid -->
-                <a href="{{this.steamid}}" class="player-card-link">
+                <a href="/jogador/{{this.steamid}}" class="player-card-link">
                   + detalhes
                 </a>
               </div>
